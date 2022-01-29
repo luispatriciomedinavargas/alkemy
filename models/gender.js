@@ -30,7 +30,7 @@ Gender.init({
         allowNull: false,
 
     },
-    deleted: {
+    delete: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },

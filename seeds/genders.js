@@ -2,7 +2,7 @@ const genders = [
     {
         id: 1,
         description: 'fantasy',
-        deleted: false,
+        delete: false,
         id_movie: 1,
         savefile: null,
 
@@ -10,7 +10,7 @@ const genders = [
     {
         id: 2,
         description: 'animation',
-        deleted: true,
+        delete: true,
         id_movie: 2,
         savefile: null,
 

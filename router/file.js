@@ -10,8 +10,8 @@ const router = Router();
 router.put('/character/:id', [
     upload.single('file'),
 ], filePutCharacter)
-router.put('/id',)
-router.put('/id',)
+router.put('/id/movie/:id',)
+router.put('/id/gender/:id',)
 
 
 

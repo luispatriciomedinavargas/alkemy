@@ -1,7 +1,7 @@
 const User = require("../models/user")
 const fs = require('fs');
 const Character = require("../models/character");
-const { Gender } = require("../models");
+const { Gender, Movie } = require("../models");
 const checkEmail = async (email) => {
     const check = await User.findOne({
         where: {
@@ -24,9 +24,17 @@ const checkIdGender = async (id) => {
         throw new Error(`Dont exist a Gender with this id: ${id}`);
     }
 }
+
+const checkIdMovie = async (id) => {
+    const check = await Movie.findByPk(id)
+    if (!check) {
+        throw new Error(`Dont exist a Movie with this id: ${id}`);
+    }
+}
 module.exports =
 {
     checkEmail,
     checkIdCharacter,
     checkIdGender,
+    checkIdMovie,
 }

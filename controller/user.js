@@ -1,5 +1,6 @@
 const { request, respopnse } = require('express');
-const { generateJWT } = require('../helpers/generar-jwt')
+const { generateJWT } = require('../helpers/generar-jwt');
+const sendEmail = require('../helpers/sendEmail');
 const User = require('../models/user');
 
 
@@ -35,8 +36,10 @@ const userRegister = async (req = request, res = respopnse) => {
 
 
     res.status(200).json({
-        msg: 'User create successful'
+        msg: `User create successful, check email's spam please`
     })
+    sendEmail(email)
+
 }
 
 

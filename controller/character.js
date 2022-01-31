@@ -5,7 +5,7 @@ const upload = require('../middleware/upload');
 
 
 const characterGetAll = async (req = request, res = response) => {
-    const characters = await Character.findAll({
+    const allCharacter = await Character.findAll({
         where: { delete: false },
         include: [{
             all: true
@@ -13,7 +13,7 @@ const characterGetAll = async (req = request, res = response) => {
 
     });
     res.status(200).json({
-        characters
+        allCharacter
     })
 };
 const characterGetId = async (req = request, res = response) => {
@@ -21,6 +21,36 @@ const characterGetId = async (req = request, res = response) => {
     res.status(200).json({
         msg: 'ok',
         id
+    })
+};
+const characterGetName = async (req = request, res = response) => {
+    const { name } = req.query;
+    const characterByName = await Character.findAll({
+        where: {
+            name: name,
+        }
+    })
+    console.log(characterByName)
+    if (!characterByName) return res.status(500).json({
+        msg: 'something was mal please call the admin'
+    })
+    res.status(200).json({
+        characterByName
+    })
+};
+const characterGetAge = async (req = request, res = response) => {
+    const { age } = req.query;
+    const characterByAge = await Character.findAll({
+        where: {
+            age: age,
+        }
+    })
+
+    if (!characterByAge) return res.status(500).json({
+        msg: 'something was mal please call the admin'
+    })
+    res.status(200).json({
+        characterByAge
     })
 };
 const characterPost = async (req = request, res = response) => {
@@ -78,6 +108,8 @@ module.exports = {
     characterGetAll,
     characterPut,
     characterDelete,
-    characterPost
+    characterPost,
+    characterGetName,
+    characterGetAge
 
 }

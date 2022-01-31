@@ -16,6 +16,8 @@ router.get('/', [
     characterGetAll
 )
 router.get('/:id', [
+    check('id', 'the id can not be empty').notEmpty(),
+    check('id', 'the id most be a int').isInt(),
     check('id').custom(checkIdCharacter),
     checkInput
 ],
@@ -23,8 +25,6 @@ router.get('/:id', [
 )
 router.post('/', [
     checkJWT,
-    check('id', 'the id can not be empty').notEmpty(),
-    check('id', 'the id most be a int').isInt(),
     check('name', 'name can not be empty').notEmpty(),
     check('name', 'the name most be a string').isString(),
     check('age', 'the age most be a string').isString(),

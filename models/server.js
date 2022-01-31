@@ -29,6 +29,7 @@ class Server {
         this.app.use(this.apiPaths.character, require('../router/character'))
         this.app.use(this.apiPaths.gender, require('../router/gender'))
         this.app.use(this.apiPaths.file, require('../router/file'))
+        this.app.use(this.apiPaths.movie, require('../router/movie'))
     }
     entities() {
         Character.sync();

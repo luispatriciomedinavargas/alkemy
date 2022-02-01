@@ -5,7 +5,10 @@ const {
     GetByIdMovie,
     PostMovie,
     PutMovie,
-    DeleteMovie, } = require('../controller/movie');
+    DeleteMovie,
+    GetByNameMovie,
+    GetByCharacterMovie,
+    GetByOrderMovie } = require('../controller/movie');
 const checkInput = require('../middleware/check-Inputs');
 const checkJWT = require('../middleware/check-JWT');
 const { checkIdMovie, checkIdCharacter } = require('../helpers/checkDB');
@@ -17,6 +20,12 @@ router.get('/', [
     checkInput
 ],
     GetMovie)
+router.get('/title/:title', [
+    checkInput,
+    check('title', 'the title can not be empty').notEmpty(),
+    check('title', 'the title is a int').isString(),
+],
+    GetByNameMovie)
 router.get('/:id', [
     checkInput,
     check('id', 'the id can not be empty').notEmpty(),
@@ -24,6 +33,16 @@ router.get('/:id', [
     check('id').custom(checkIdMovie)
 ],
     GetByIdMovie)
+router.get('/id_character/:id_character', [
+    checkInput,
+    check('title', 'the title can not be empty').notEmpty(),
+    check('title', 'the title is a int').isString(),
+],
+    GetByCharacterMovie)
+router.get('/order/order', [
+],
+    GetByOrderMovie)
+
 router.post('/', [
     checkJWT,
     check('id_character', 'the id_character is a int').isInt(),

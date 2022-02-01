@@ -1,10 +1,11 @@
 const { request, response } = require('express');
 const { Movie } = require('../models');
+const { sequelize } = require('../models/character');
 
 
 const GetMovie = async (req = request, res = response) => {
 
-    const getAllMovie = await Movie.findOne({
+    const getAllMovie = await Movie.findAll({
         where: {
             deleted: false
         }
@@ -17,25 +18,57 @@ const GetMovie = async (req = request, res = response) => {
 const GetByIdMovie = async (req = request, res = response) => {
     const { id } = req.params;
     let movieByID = {}
+
     const movie = await Movie.findOne({
         where: {
             deleted: false,
             id: id
         }
     })
-
-    // for (let i = 0; i < movie.dataValues.length; i++) {
-    //     console.log(movie)
-    // }
     movieByID.title = movie.dataValues.title;
     movieByID.cerated = movie.dataValues.created;
     movieByID.savefile = movie.dataValues.savefile;
 
-
     res.status(200).json({
         movieByID
     })
-
+}
+const GetByNameMovie = async (req = request, res = response) => {
+    const { title } = req.query;
+    const movie = await Movie.findAll({
+        where: {
+            deleted: false,
+            title: title
+        }
+    })
+    res.status(200).json({
+        movie
+    })
+}
+const GetByOrderMovie = async (req = request, res = response) => {
+    const { id_character } = req.query;
+    const movie = await Movie.findAll({
+        order: [['id', 'desc']]
+    })
+    res.status(200).json({
+        msg: 'ok',
+        movie
+    })
+}
+const GetByCharacterMovie = async (req = request, res = response) => {
+    const { id_character } = req.query;
+    const movie = await Movie.findAll({
+        where: {
+            deleted: false,
+            id_character: id_character
+        },
+        include: {
+            all: true
+        }
+    })
+    res.status(200).json({
+        movie
+    })
 }
 const PostMovie = async (req = request, res = response) => {
     const { title,
@@ -93,4 +126,7 @@ module.exports = {
     PostMovie,
     PutMovie,
     DeleteMovie,
+    GetByNameMovie,
+    GetByOrderMovie,
+    GetByCharacterMovie
 }
